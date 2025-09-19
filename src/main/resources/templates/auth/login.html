@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - HariLMS</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .brand-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px 0 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="b" cx="200" cy="200" r="200"><stop offset="0" stop-color="%23ffffff" stop-opacity="0.2"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><rect width="1000" height="1000" fill="url(%23b)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: #667eea;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .quick-login-btn {
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-login-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-elements::before,
+        .floating-elements::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-elements::before {
+            top: 20%;
+            left: 10%;
+            animation-delay: -3s;
+        }
+        
+        .floating-elements::after {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: -1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .login-form {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<<body>
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <div class="login-card row g-0">
+                    <!-- Left Side - Branding -->
+                    <div class="col-lg-6 brand-section d-flex align-items-center justify-content-center text-white position-relative">
+                        <div class="floating-elements"></div>
+                        <div class="text-center p-5 position-relative z-index-1">
+                            <div class="mb-4">
+                                <i class="bi bi-mortarboard-fill" style="font-size: 4rem;"></i>
+                            </div>
+                            <h2 class="fw-bold mb-3">Welcome to HariLMS</h2>
+                            <p class="lead mb-4">Your gateway to knowledge and learning excellence</p>
+                            <div class="d-flex justify-content-center gap-4 text-center">
+                                <div>
+                                    <i class="bi bi-people-fill fs-3"></i>
+                                    <p class="small mt-2 mb-0">Connect with learners</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-book-fill fs-3"></i>
+                                    <p class="small mt-2 mb-0">Access courses</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-trophy-fill fs-3"></i>
+                                    <p class="small mt-2 mb-0">Achieve goals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Login Form -->
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="w-100 p-5 login-form">
+                            <div class="text-center mb-4">
+                                <h3 class="fw-bold text-dark mb-2">Sign In</h3>
+                                <p class="text-muted">Enter your credentials to access your account</p>
+                            </div>
+                            
+                            <!-- Error Messages -->
+                            <div th:if="${param.error}" class="alert alert-danger alert-custom mb-4" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION != null ? session.SPRING_SECURITY_LAST_EXCEPTION.message : 'Invalid username or password!'}">
+                                    Invalid username or password!
+                                </span>
+                            </div>
+                            
+                            <!-- Success Messages -->
+                            <div th:if="${param.logout}" class="alert alert-success alert-custom mb-4" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                You have been successfully logged out.
+                            </div>
+                            
+                            <!-- Custom Success/Error Messages -->
+                            <div th:if="${error}" class="alert alert-danger alert-custom mb-4" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <span th:text="${error}">Login Failed</span>
+                            </div>
+                            
+                            <div th:if="${message}" class="alert alert-success alert-custom mb-4" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <span th:text="${message}">Operation completed successfully!</span>
+                            </div>
+                            
+                            <!-- Loading indicator -->
+                            <div id="loadingIndicator" class="alert alert-info alert-custom mb-4 d-none" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <div class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></div>
+                                    <span>Signing in...</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Login Form -->
+                            <form id="loginForm" method="post" th:action="@{/login}" novalidate>
+                                <!-- CSRF Token (only if CSRF is enabled) -->
+                                <input type="hidden" th:if="${_csrf}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                
+                                <!-- Username Field -->
+                                <div class="form-floating mb-3">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="username" 
+                                        name="username" 
+                                        placeholder="Enter your username"
+                                        required
+                                        autocomplete="username">
+                                    <label for="username">
+                                        <i class="bi bi-person-fill me-2"></i>Username
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Please enter your username.
+                                    </div>
+                                </div>
+                                
+                                <!-- Password Field -->
+                                <div class="form-floating mb-4 position-relative">
+                                    <input 
+                                        type="password" 
+                                        class="form-control" 
+                                        id="password" 
+                                        name="password" 
+                                        placeholder="Enter your password"
+                                        required
+                                        autocomplete="current-password">
+                                    <label for="password">
+                                        <i class="bi bi-lock-fill me-2"></i>Password
+                                    </label>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2 border-0"
+                                        id="togglePassword"
+                                        style="z-index: 10;">
+                                        <i class="bi bi-eye-fill" id="togglePasswordIcon"></i>
+                                    </button>
+                                    <div class="invalid-feedback">
+                                        Please enter your password.
+                                    </div>
+                                </div>
+                                
+                                <!-- Remember Me and Forgot Password -->
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
+                                        <label class="form-check-label" for="remember-me">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="#" class="text-decoration-none">Forgot password?</a>
+                                </div>
+                                
+                                <!-- Submit Button -->
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-primary-custom w-100 mb-4" 
+                                    id="submitBtn">
+                                    <span id="submitBtnText">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                                        Sign In
+                                    </span>
+                                    <span id="submitBtnSpinner" class="d-none">
+                                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Signing in...
+                                    </span>
+                                </button>
+                            </form>
+                            
+                            <!-- Quick Login Demo Buttons -->
+                            <div class="text-center">
+                                <p class="text-muted mb-3">
+                                    <small>Quick Login (Demo Accounts)</small>
+                                </p>
+                                <div class="row g-2">
+                                    <div class="col-4">
+                                        <button 
+                                            type="button" 
+                                            onclick="quickLogin('admin', 'admin123')" 
+                                            class="btn btn-outline-danger btn-sm w-100 quick-login-btn">
+                                            <i class="bi bi-shield-fill-check"></i>
+                                            <div class="small">Admin</div>
+                                        </button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button 
+                                            type="button" 
+                                            onclick="quickLogin('instructor', 'instructor123')" 
+                                            class="btn btn-outline-primary btn-sm w-100 quick-login-btn">
+                                            <i class="bi bi-person-workspace"></i>
+                                            <div class="small">Instructor</div>
+                                        </button>
+                                    </div>
+                                    <div class="col-4">
+                                        <button 
+                                            type="button" 
+                                            onclick="quickLogin('student', 'student123')" 
+                                            class="btn btn-outline-success btn-sm w-100 quick-login-btn">
+                                            <i class="bi bi-mortarboard"></i>
+                                            <div class="small">Student</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sign up link -->
+                            <div class="text-center mt-4 pt-4 border-top">
+                                <p class="text-muted mb-0">
+                                    Don't have an account? 
+                                    <a href="/signup" class="text-decoration-none fw-semibold">Create Account</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // DOM Content Loaded Event
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFormValidation();
+            initializePasswordToggle();
+            initializeFormSubmission();
+        });
+        
+        // Form Validation
+        function initializeFormValidation() {
+            const form = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            // Real-time validation
+            usernameInput.addEventListener('input', function() {
+                validateField(this, 'Username is required');
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                validateField(this, 'Password is required');
+            });
+            
+            // Form submit validation
+            form.addEventListener('submit', function(event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    showErrorMessage('Please fill in all required fields correctly.');
+                    return false;
+                }
+            });
+        }
+        
+        // Validate individual field
+        function validateField(field, errorMessage) {
+            const value = field.value.trim();
+            const isValid = value.length > 0;
+            
+            if (isValid) {
+                field.classList.remove('is-invalid');
+                field.classList.add('is-valid');
+            } else {
+                field.classList.remove('is-valid');
+                field.classList.add('is-invalid');
+            }
+            
+            return isValid;
+        }
+        
+        // Validate entire form
+        function validateForm() {
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            
+            const isUsernameValid = validateField(username, 'Username is required');
+            const isPasswordValid = validateField(password, 'Password is required');
+            
+            return isUsernameValid && isPasswordValid;
+        }
+        
+        // Password toggle functionality
+        function initializePasswordToggle() {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+            
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle icon
+                    if (type === 'text') {
+                        toggleIcon.classList.remove('bi-eye-fill');
+                        toggleIcon.classList.add('bi-eye-slash-fill');
+                    } else {
+                        toggleIcon.classList.remove('bi-eye-slash-fill');
+                        toggleIcon.classList.add('bi-eye-fill');
+                    }
+                });
+            }
+        }
+        
+        // Form submission with loading states
+        function initializeFormSubmission() {
+            const form = document.getElementById('loginForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnSpinner = document.getElementById('submitBtnSpinner');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            form.addEventListener('submit', function(event) {
+                if (validateForm()) {
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitBtnText.classList.add('d-none');
+                    submitBtnSpinner.classList.remove('d-none');
+                    loadingIndicator.classList.remove('d-none');
+                    
+                    // Hide any existing error messages
+                    hideErrorMessages();
+                    
+                    // Note: The form will submit naturally, so we don't prevent default here
+                } else {
+                    event.preventDefault();
+                    showErrorMessage('Please fill in all required fields correctly.');
+                }
+            });
+        }
+        
+        // Quick login function with enhanced UX
+        function quickLogin(username, password) {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const form = document.getElementById('loginForm');
+            
+            // Clear any existing validation states
+            clearValidationStates();
+            
+            // Set values with animation
+            usernameInput.value = '';
+            passwordInput.value = '';
+            
+            // Animate typing effect
+            typeWriter(usernameInput, username, function() {
+                setTimeout(function() {
+                    typeWriter(passwordInput, password, function() {
+                        setTimeout(function() {
+                            // Trigger validation
+                            validateField(usernameInput, 'Username is required');
+                            validateField(passwordInput, 'Password is required');
+                            
+                            // Submit form
+                            form.submit();
+                        }, 500);
+                    });
+                }, 300);
+            });
+        }
+        
+        // Typewriter effect for quick login
+        function typeWriter(element, text, callback, index = 0) {
+            if (index < text.length) {
+                element.value += text.charAt(index);
+                setTimeout(() => typeWriter(element, text, callback, index + 1), 100);
+            } else if (callback) {
+                callback();
+            }
+        }
+        
+        // Clear validation states
+        function clearValidationStates() {
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
+            });
+        }
+        
+        // Show error message
+        function showErrorMessage(message) {
+            // Remove existing custom error messages
+            const existingErrors = document.querySelectorAll('.custom-error-alert');
+            existingErrors.forEach(error => error.remove());
+            
+            // Create new error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger alert-custom mb-4 custom-error-alert';
+            errorDiv.innerHTML = `
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                ${message}
+            `;
+            
+            // Insert before the form
+            const form = document.getElementById('loginForm');
+            form.parentNode.insertBefore(errorDiv, form);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        // Hide error messages
+        function hideErrorMessages() {
+            const errorMessages = document.querySelectorAll('.alert-danger');
+            errorMessages.forEach(error => {
+                error.style.display = 'none';
+            });
+        }
+        
+        // Show success message
+        function showSuccessMessage(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'alert alert-success alert-custom mb-4';
+            successDiv.innerHTML = `
+                <i class="bi bi-check-circle-fill me-2"></i>
+                ${message}
+            `;
+            
+            const form = document.getElementById('loginForm');
+            form.parentNode.insertBefore(successDiv, form);
+            
+            setTimeout(() => {
+                if (successDiv.parentNode) {
+                    successDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        // Initialize tooltips (Bootstrap 5)
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Enter key to submit form
+            if (event.key === 'Enter' && (event.target.id === 'username' || event.target.id === 'password')) {
+                const form = document.getElementById('loginForm');
+                if (validateForm()) {
+                    form.submit();
+                }
+            }
+            
+            // Ctrl+1, Ctrl+2, Ctrl+3 for quick login
+            if (event.ctrlKey) {
+                switch(event.key) {
+                    case '1':
+                        event.preventDefault();
+                        quickLogin('admin', 'admin123');
+                        break;
+                    case '2':
+                        event.preventDefault();
+                        quickLogin('instructor', 'instructor123');
+                        break;
+                    case '3':
+                        event.preventDefault();
+                        quickLogin('student', 'student123');
+                        break;
+                }
+            }
+        });
+        
+        // Auto-focus on username field
+        window.addEventListener('load', function() {
+            const usernameInput = document.getElementById('username');
+            if (usernameInput) {
+                usernameInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

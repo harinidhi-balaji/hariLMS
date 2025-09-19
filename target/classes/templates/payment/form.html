@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment - Hari LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-graduation-cap text-primary-600 text-xl mr-2"></i>
+                        <span class="text-xl font-bold text-secondary-900">Hari LMS</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/courses" class="text-secondary-600 hover:text-primary-600 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Page Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-secondary-900 mb-2">Course Enrollment</h1>
+                <p class="text-secondary-600">Complete your enrollment in just a few steps</p>
+            </div>
+
+            <!-- Error/Success Messages -->
+            <div th:if="${errorMessage}" class="mb-6">
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span th:text="${errorMessage}">Error message</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                
+                <!-- Course Summary Header -->
+                <div th:if="${course}" class="bg-gradient-to-r from-primary-600 to-primary-700 text-white p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-white/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-book text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold" th:text="${course.title}">Course Title</h2>
+                                <p class="text-primary-100">Instructor: <span th:text="${course.instructorUsername}">Instructor Name</span></p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold">
+                                $<span th:text="${course.price}">99.99</span>
+                            </div>
+                            <div class="text-primary-100 text-sm">Course Price</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enrollment Form -->
+                <div class="p-8">
+                    <form th:action="@{/payment/process/{courseId}(courseId=${course.id})}" method="post" class="space-y-6">
+                        
+                        <!-- Student Information -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-secondary-700 mb-2">
+                                    <i class="fas fa-user mr-1"></i>
+                                    Full Name <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       name="studentName" 
+                                       required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                       placeholder="Enter your full name">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-secondary-700 mb-2">
+                                    <i class="fas fa-envelope mr-1"></i>
+                                    Email Address <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" 
+                                       name="studentEmail" 
+                                       required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                       placeholder="Enter your email address">
+                            </div>
+                        </div>
+
+                        <!-- Payment Method Selection -->
+                        <div>
+                            <label class="block text-sm font-medium text-secondary-700 mb-4">
+                                <i class="fas fa-credit-card mr-1"></i>
+                                Choose Payment Method <span class="text-red-500">*</span>
+                            </label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <label class="payment-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary-300 hover:bg-primary-50 transition-all">
+                                    <input type="radio" name="paymentMethod" value="CREDIT_CARD" checked class="sr-only">
+                                    <div class="flex items-center w-full">
+                                        <div class="w-6 h-6 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3 payment-radio">
+                                            <div class="w-3 h-3 bg-primary-500 rounded-full payment-dot"></div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-secondary-900">Credit Card</div>
+                                            <div class="text-sm text-secondary-500">Visa, MasterCard</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary-300 hover:bg-primary-50 transition-all">
+                                    <input type="radio" name="paymentMethod" value="PAYPAL" class="sr-only">
+                                    <div class="flex items-center w-full">
+                                        <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center mr-3 payment-radio">
+                                            <div class="w-3 h-3 bg-transparent rounded-full payment-dot"></div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-secondary-900">PayPal</div>
+                                            <div class="text-sm text-secondary-500">Quick & Secure</div>
+                                        </div>
+                                    </div>
+                                </label>
+                                
+                                <label class="payment-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary-300 hover:bg-primary-50 transition-all">
+                                    <input type="radio" name="paymentMethod" value="BANK_TRANSFER" class="sr-only">
+                                    <div class="flex items-center w-full">
+                                        <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center mr-3 payment-radio">
+                                            <div class="w-3 h-3 bg-transparent rounded-full payment-dot"></div>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-secondary-900">Bank Transfer</div>
+                                            <div class="text-sm text-secondary-500">Direct Payment</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-start">
+                                <input type="checkbox" 
+                                       name="agreeTerms" 
+                                       required 
+                                       class="mt-1 w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                                <label class="ml-3 text-sm text-secondary-700">
+                                    I agree to the <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Terms and Conditions</a> 
+                                    and <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>
+                                    <span class="text-red-500">*</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Course Benefits Info -->
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-medium text-green-800 mb-2">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                What's Included
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-green-700">
+                                <div class="flex items-center">
+                                    <i class="fas fa-play-circle mr-2"></i>
+                                    Full course access
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-certificate mr-2"></i>
+                                    Certificate of completion
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    Lifetime access
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-mobile-alt mr-2"></i>
+                                    Mobile-friendly content
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                            <a href="/courses" 
+                               class="flex-1 bg-secondary-100 text-secondary-700 px-6 py-3 rounded-lg font-medium hover:bg-secondary-200 transition-colors text-center">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Back to Courses
+                            </a>
+                            <button type="submit" 
+                                    class="flex-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-3 rounded-lg font-medium hover:from-green-700 hover:to-green-800 transition-all transform hover:-translate-y-0.5 hover:shadow-lg text-lg">
+                                <i class="fas fa-graduation-cap mr-2"></i>
+                                Enroll Now - $<span th:text="${course.price}">99.99</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-8 text-center">
+                <div class="flex justify-center items-center space-x-6 text-sm text-secondary-500">
+                    <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                        Secure Enrollment
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-money-bill-wave text-blue-500 mr-2"></i>
+                        30-Day Money Back
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-support text-purple-500 mr-2"></i>
+                        24/7 Support
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Payment Method Selection -->
+    <script>
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active state from all options
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('border-primary-500', 'bg-primary-50');
+                    opt.classList.add('border-gray-200');
+                    const radio = opt.querySelector('.payment-radio');
+                    const dot = opt.querySelector('.payment-dot');
+                    radio.classList.remove('border-primary-500');
+                    radio.classList.add('border-gray-300');
+                    dot.classList.remove('bg-primary-500');
+                    dot.classList.add('bg-transparent');
+                });
+                
+                // Add active state to clicked option
+                this.classList.add('border-primary-500', 'bg-primary-50');
+                this.classList.remove('border-gray-200');
+                const radio = this.querySelector('.payment-radio');
+                const dot = this.querySelector('.payment-dot');
+                radio.classList.add('border-primary-500');
+                radio.classList.remove('border-gray-300');
+                dot.classList.add('bg-primary-500');
+                dot.classList.remove('bg-transparent');
+                
+                // Check the radio button
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
+    </script>
+</body>
+</html>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Course Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Course Summary</h3>
+                        
+                        <div th:if="${course}" class="space-y-4">
+                            <div class="flex items-center">
+                                <img src="/images/course-placeholder.jpg" alt="Course" class="w-16 h-12 rounded-lg object-cover mr-4">
+                                <div>
+                                    <h4 class="font-medium text-secondary-900" th:text="${course.title}">Course Title</h4>
+                                    <p class="text-sm text-secondary-500" th:text="${course.instructorUsername}">Instructor Name</p>
+                                </div>
+                            </div>
+                            
+                            <div class="border-t pt-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-secondary-600">Course Price:</span>
+                                    <span class="text-lg font-semibold text-secondary-900">
+                                        $<span th:text="${course.price}">99.99</span>
+                                    </span>
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-secondary-600">Processing Fee:</span>
+                                    <span class="text-secondary-900">$0.00</span>
+                                </div>
+                                <div class="border-t pt-2 mt-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-lg font-semibold text-secondary-900">Total:</span>
+                                        <span class="text-xl font-bold text-primary-600">
+                                            $<span th:text="${course.price}">99.99</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Features -->
+                    <div class="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="font-medium text-green-800 mb-2">
+                            <i class="fas fa-shield-alt mr-2"></i>Secure Payment
+                        </h4>
+                        <ul class="text-sm text-green-700 space-y-1">
+                            <li><i class="fas fa-check mr-2"></i>256-bit SSL encryption</li>
+                            <li><i class="fas fa-check mr-2"></i>PCI DSS compliant</li>
+                            <li><i class="fas fa-check mr-2"></i>30-day money-back guarantee</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-6">Payment Information</h3>
+                        
+                        <form th:action="@{/payment/process/{courseId}(courseId=${course.id})}" method="post" class="space-y-6">
+                            <!-- Payment Method -->
+                            <div>
+                                <label class="block text-sm font-medium text-secondary-700 mb-3">Payment Method</label>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <label class="relative">
+                                        <input type="radio" name="paymentMethod" value="credit_card" class="peer hidden" checked>
+                                        <div class="border-2 border-gray-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 rounded-lg p-4 cursor-pointer hover:border-gray-300 transition-colors">
+                                            <div class="text-center">
+                                                <i class="fas fa-credit-card text-2xl text-primary-600 mb-2"></i>
+                                                <div class="text-sm font-medium text-secondary-700">Credit Card</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="relative">
+                                        <input type="radio" name="paymentMethod" value="paypal" class="peer hidden">
+                                        <div class="border-2 border-gray-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 rounded-lg p-4 cursor-pointer hover:border-gray-300 transition-colors">
+                                            <div class="text-center">
+                                                <i class="fab fa-paypal text-2xl text-blue-600 mb-2"></i>
+                                                <div class="text-sm font-medium text-secondary-700">PayPal</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    
+                                    <label class="relative">
+                                        <input type="radio" name="paymentMethod" value="stripe" class="peer hidden">
+                                        <div class="border-2 border-gray-200 peer-checked:border-primary-500 peer-checked:bg-primary-50 rounded-lg p-4 cursor-pointer hover:border-gray-300 transition-colors">
+                                            <div class="text-center">
+                                                <i class="fab fa-stripe text-2xl text-indigo-600 mb-2"></i>
+                                                <div class="text-sm font-medium text-secondary-700">Stripe</div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Credit Card Details -->
+                            <div id="creditCardDetails" class="space-y-4">
+                                <div>
+                                    <label for="cardNumber" class="block text-sm font-medium text-secondary-700 mb-2">Card Number</label>
+                                    <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="expiryDate" class="block text-sm font-medium text-secondary-700 mb-2">Expiry Date</label>
+                                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" 
+                                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <label for="cvv" class="block text-sm font-medium text-secondary-700 mb-2">CVV</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="123" 
+                                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="cardName" class="block text-sm font-medium text-secondary-700 mb-2">Cardholder Name</label>
+                                    <input type="text" id="cardName" name="cardName" placeholder="John Doe" 
+                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <!-- Terms and Conditions -->
+                            <div class="flex items-start">
+                                <input type="checkbox" id="terms" class="mt-1 mr-3" required>
+                                <label for="terms" class="text-sm text-secondary-600">
+                                    I agree to the <a href="/terms" class="text-primary-600 hover:text-primary-700">Terms of Service</a> 
+                                    and <a href="/privacy" class="text-primary-600 hover:text-primary-700">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="pt-4">
+                                <button type="submit" id="submitPayment" 
+                                        class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white font-bold py-4 px-6 rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xl">
+                                    <i class="fas fa-lock mr-2"></i>
+                                    Complete Payment - $<span th:text="${course.price}">99.99</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple form validation and UX improvements
+        document.getElementById('submitPayment').addEventListener('click', function(e) {
+            const button = this;
+            const form = this.closest('form');
+            
+            // Show loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing Payment...';
+            button.disabled = true;
+            
+            // Re-enable button after 5 seconds if form hasn't submitted
+            setTimeout(() => {
+                if (!form.submitted) {
+                    const priceSpan = document.querySelector('[th\\:text="${course.price}"]');
+                    const price = priceSpan ? priceSpan.textContent : '99.99';
+                    button.innerHTML = '<i class="fas fa-lock mr-2"></i>Complete Payment - $' + price;
+                    button.disabled = false;
+                }
+            }, 5000);
+        });
+
+        // Format card number input
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            if (formattedValue !== value) {
+                e.target.value = formattedValue;
+            }
+        });
+
+        // Format expiry date input
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV input restriction
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed - Hari LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-graduation-cap text-primary-600 text-xl mr-2"></i>
+                        <span class="text-xl font-bold text-secondary-900">Hari LMS</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/courses" class="text-secondary-600 hover:text-primary-600 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen py-8">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Failure Icon -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-full mb-6">
+                    <i class="fas fa-exclamation-triangle text-4xl text-red-600"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-secondary-900 mb-2">Payment Failed</h1>
+                <p class="text-lg text-secondary-600">We couldn't process your payment</p>
+            </div>
+
+            <!-- Error Details Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Course Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Course Details</h3>
+                        <div th:if="${course}" class="space-y-3">
+                            <div class="flex items-start">
+                                <i class="fas fa-book text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <div class="font-medium text-secondary-900" th:text="${course.title}">Course Title</div>
+                                    <div class="text-sm text-secondary-500" th:text="${course.instructor}">Instructor Name</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-dollar-sign text-secondary-400 mr-3"></i>
+                                <span class="text-secondary-600">$<span th:text="${course.price}">99.99</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Payment Details</h3>
+                        <div th:if="${payment}" class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Transaction ID:</span>
+                                <span class="font-mono text-sm text-secondary-900" th:text="${payment.transactionId}">TXN-ABC123</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Attempted Amount:</span>
+                                <span class="font-semibold text-secondary-900">$<span th:text="${payment.amount}">99.99</span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Attempt Time:</span>
+                                <span class="text-secondary-900" th:text="${#temporals.format(payment.updatedAt, 'MMM dd, yyyy HH:mm')}">Oct 28, 2024 14:30</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Status:</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    <i class="fas fa-times-circle mr-1"></i>
+                                    Failed
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Issues and Solutions -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-yellow-800 mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    Common Issues & Solutions
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-6 h-6 bg-yellow-200 rounded-full mr-3 mt-0.5">
+                            <i class="fas fa-credit-card text-xs text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-yellow-800">Insufficient funds</h4>
+                            <p class="text-sm text-yellow-700">Check your account balance or try a different payment method</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-6 h-6 bg-yellow-200 rounded-full mr-3 mt-0.5">
+                            <i class="fas fa-shield-alt text-xs text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-yellow-800">Card security</h4>
+                            <p class="text-sm text-yellow-700">Your bank may have blocked the transaction for security reasons</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-6 h-6 bg-yellow-200 rounded-full mr-3 mt-0.5">
+                            <i class="fas fa-calendar-alt text-xs text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-yellow-800">Expired card</h4>
+                            <p class="text-sm text-yellow-700">Please check your card expiry date and try again</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-6 h-6 bg-yellow-200 rounded-full mr-3 mt-0.5">
+                            <i class="fas fa-info text-xs text-yellow-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-yellow-800">Incorrect details</h4>
+                            <p class="text-sm text-yellow-700">Double-check your card number, expiry date, and CVV</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <a th:href="@{/payment/course/{courseId}(courseId=${course.id})}" 
+                   class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xl">
+                    <i class="fas fa-redo mr-2"></i>
+                    Try Again
+                </a>
+                
+                <a href="/support" 
+                   class="inline-flex items-center justify-center px-8 py-3 border-2 border-secondary-300 text-secondary-700 font-semibold rounded-xl hover:border-secondary-400 hover:bg-secondary-50 transition-colors">
+                    <i class="fas fa-headset mr-2"></i>
+                    Contact Support
+                </a>
+                
+                <a href="/courses" 
+                   class="inline-flex items-center justify-center px-8 py-3 text-secondary-600 font-semibold rounded-xl hover:text-primary-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Courses
+                </a>
+            </div>
+
+            <!-- Alternative Payment Methods -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-semibold text-secondary-900 mb-4">
+                    <i class="fas fa-credit-card mr-2 text-primary-600"></i>
+                    Try Alternative Payment Methods
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-300 transition-colors">
+                        <i class="fab fa-paypal text-2xl text-blue-600 mr-3"></i>
+                        <div>
+                            <div class="font-medium text-secondary-900">PayPal</div>
+                            <div class="text-sm text-secondary-500">Secure & fast</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-300 transition-colors">
+                        <i class="fab fa-stripe text-2xl text-indigo-600 mr-3"></i>
+                        <div>
+                            <div class="font-medium text-secondary-900">Stripe</div>
+                            <div class="text-sm text-secondary-500">Bank transfer</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-300 transition-colors">
+                        <i class="fas fa-university text-2xl text-green-600 mr-3"></i>
+                        <div>
+                            <div class="font-medium text-secondary-900">Bank Card</div>
+                            <div class="text-sm text-secondary-500">Different card</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Information -->
+            <div class="text-center">
+                <div class="bg-gray-100 rounded-lg p-4 inline-block">
+                    <p class="text-secondary-600 mb-2">
+                        <i class="fas fa-phone mr-2"></i>
+                        Need immediate help?
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+                        <a href="tel:+1234567890" class="text-primary-600 hover:text-primary-700 transition-colors">
+                            <i class="fas fa-phone mr-1"></i>+1 (234) 567-8900
+                        </a>
+                        <a href="mailto:support@harilms.com" class="text-primary-600 hover:text-primary-700 transition-colors">
+                            <i class="fas fa-envelope mr-1"></i>support@harilms.com
+                        </a>
+                    </div>
+                    <p class="text-sm text-secondary-500 mt-2">Available 24/7 for payment issues</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

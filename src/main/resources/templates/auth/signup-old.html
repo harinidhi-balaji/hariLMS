@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - HariLMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100">
+    
+    <!-- Error and Success Messages -->
+    <div th:if="${error}" class="fixed top-4 right-4 z-50 max-w-md">
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-lg">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                <span th:text="${error}">Error message</span>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${message}" class="fixed top-4 right-4 z-50 max-w-md">
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-lg">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span th:text="${message}">Success message</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-h-screen flex">
+        <!-- Left Panel - Form -->
+        <div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <div class="mx-auto h-16 w-16 bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg mb-6">
+                        <span class="text-white font-bold text-2xl">H</span>
+                    </div>
+                    <h1 class="text-4xl font-bold text-secondary-900 mb-2">Create Account</h1>
+                    <p class="text-secondary-600">Join thousands of learners today</p>
+                </div>
+
+                <!-- Signup Form -->
+                <form method="post" th:action="@{/api/auth/signup}" class="space-y-6" id="signupForm">
+                    <!-- Full Name -->
+                    <div class="space-y-1">
+                        <label for="fullName" class="block text-sm font-semibold text-secondary-700">Full Name</label>
+                        <input type="text" 
+                               id="fullName" 
+                               name="fullName" 
+                               required 
+                               class="w-full px-4 py-3 rounded-xl border border-secondary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 text-secondary-900 placeholder-secondary-400"
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <!-- Username -->
+                    <div class="space-y-1">
+                        <label for="username" class="block text-sm font-semibold text-secondary-700">Username</label>
+                        <input type="text" 
+                               id="username" 
+                               name="username" 
+                               required 
+                               class="w-full px-4 py-3 rounded-xl border border-secondary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 text-secondary-900 placeholder-secondary-400"
+                               placeholder="Choose a username">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="space-y-1">
+                        <label for="email" class="block text-sm font-semibold text-secondary-700">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required 
+                               class="w-full px-4 py-3 rounded-xl border border-secondary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 text-secondary-900 placeholder-secondary-400"
+                               placeholder="Enter your email">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="space-y-1">
+                        <label for="password" class="block text-sm font-semibold text-secondary-700">Password</label>
+                        <input type="password" 
+                               id="password" 
+                               name="password" 
+                               required 
+                               minlength="6"
+                               class="w-full px-4 py-3 rounded-xl border border-secondary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 text-secondary-900 placeholder-secondary-400"
+                               placeholder="Create a password">
+                    </div>
+
+                    <!-- Role Selection -->
+                    <div class="space-y-1">
+                        <label for="role" class="block text-sm font-semibold text-secondary-700">I want to join as</label>
+                        <select id="role" 
+                                name="role" 
+                                required 
+                                class="w-full px-4 py-3 rounded-xl border border-secondary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 text-secondary-900 bg-white">
+                            <option value="">Select your role</option>
+                            <option value="STUDENT">Student - Learn from experts</option>
+                            <option value="INSTRUCTOR">Instructor - Share knowledge</option>
+                        </select>
+                    </div>
+
+                    <!-- Terms and Privacy -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" 
+                               id="terms" 
+                               name="terms" 
+                               required
+                               class="mt-1 w-4 h-4 text-primary-600 border-secondary-300 rounded focus:ring-primary-500 focus:ring-2">
+                        <label for="terms" class="text-sm text-secondary-600">
+                            I agree to the <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Terms of Service</a> 
+                            and <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold py-3 px-6 rounded-xl hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
+                        Create Account
+                    </button>
+                </form>
+
+                <!-- Sign In Link -->
+                <div class="mt-8 text-center">
+                    <p class="text-secondary-600">
+                        Already have an account? 
+                        <a href="/login" class="text-primary-600 hover:text-primary-700 font-semibold transition-colors">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Hero -->
+        <div class="hidden lg:flex flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary-600/50 to-primary-900/50"></div>
+            
+            <!-- Decorative elements -->
+            <div class="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+            <div class="absolute bottom-40 right-16 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+            <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-primary-400/20 rounded-full blur-lg"></div>
+            
+            <div class="relative flex flex-col justify-center items-center text-center px-12 text-white z-10">
+                <div class="max-w-lg">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                        Start Your Learning
+                        <span class="block text-primary-200">Journey Today</span>
+                    </h2>
+                    <p class="text-xl text-primary-100 mb-8 leading-relaxed">
+                        Join thousands of learners who have advanced their careers with our comprehensive courses and expert instruction.
+                    </p>
+                    
+                    <!-- Features -->
+                    <div class="space-y-4">
+                        <div class="flex items-center text-left">
+                            <div class="w-8 h-8 bg-primary-400 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-primary-100">Expert-led courses</span>
+                        </div>
+                        <div class="flex items-center text-left">
+                            <div class="w-8 h-8 bg-primary-400 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-primary-100">Learn at your own pace</span>
+                        </div>
+                        <div class="flex items-center text-left">
+                            <div class="w-8 h-8 bg-primary-400 rounded-lg flex items-center justify-center mr-4">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-primary-100">Get certified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-hide messages after 5 seconds
+        setTimeout(() => {
+            const messages = document.querySelectorAll('.fixed.top-4');
+            messages.forEach(message => {
+                message.style.opacity = '0';
+                message.style.transform = 'translateY(-20px)';
+                setTimeout(() => message.remove(), 300);
+            });
+        }, 5000);
+
+        // Form validation
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+            
+            if (password.length < 6) {
+                e.preventDefault();
+                alert('Password must be at least 6 characters long.');
+                return false;
+            }
+            
+            if (!terms) {
+                e.preventDefault();
+                alert('Please accept the terms and conditions.');
+                return false;
+            }
+        });
+
+        // Add loading state to button
+        document.getElementById('signupForm').addEventListener('submit', function() {
+            const button = this.querySelector('button[type="submit"]');
+            button.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Creating Account...
+            `;
+            button.disabled = true;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <title>Course Details - Hari LMS</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Course Header -->
+        <div class="bg-gray-900">
+            <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                    <!-- Course Info -->
+                    <div class="lg:col-span-8">
+                        <nav class="flex mb-6" aria-label="Breadcrumb">
+                            <ol class="flex items-center space-x-4">
+                                <li>
+                                    <div>
+                                        <a th:href="@{/courses}" class="text-gray-400 hover:text-white">
+                                            <svg class="flex-shrink-0 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L9 5.414V17a1 1 0 102 0V5.414l5.293 5.293a1 1 0 001.414-1.414l-7-7z" />
+                                            </svg>
+                                            <span class="sr-only">Back to courses</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                                        </svg>
+                                        <a th:href="@{/courses}" class="ml-4 text-sm font-medium text-gray-300 hover:text-white">Courses</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <svg class="flex-shrink-0 h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+                                        </svg>
+                                        <span class="ml-4 text-sm font-medium text-gray-500">Complete Web Development Bootcamp</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <div class="flex items-center mb-4">
+                            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                Programming
+                            </span>
+                            <div class="ml-4 flex items-center">
+                                <div class="flex items-center">
+                                    <svg class="h-5 w-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span class="ml-1 text-sm text-white">4.8</span>
+                                    <span class="ml-2 text-sm text-gray-300">(1,245 reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h1 class="text-3xl font-bold text-white mb-4">
+                            Complete Web Development Bootcamp 2024
+                        </h1>
+                        <p class="text-xl text-gray-300 mb-6">
+                            Master modern web development from scratch. Learn HTML, CSS, JavaScript, React, Node.js, and deploy real-world projects.
+                        </p>
+
+                        <div class="flex items-center text-gray-300 space-x-6">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                40 hours of content
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                25 lessons
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                2,847 students
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex items-center">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Instructor">
+                            <div class="ml-4">
+                                <div class="text-lg font-medium text-white">John Doe</div>
+                                <div class="text-sm text-gray-300">Full Stack Developer & Instructor</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Preview Video -->
+                    <div class="mt-8 lg:mt-0 lg:col-span-4">
+                        <div class="bg-black rounded-lg overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9">
+                                <div class="bg-gray-800 flex items-center justify-center h-64">
+                                    <button class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-4 transition-all duration-200">
+                                        <svg class="h-12 w-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Content -->
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-8">
+                    <!-- Course Description -->
+                    <div class="bg-white shadow rounded-lg p-6 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">About this course</h2>
+                        <div class="prose prose-lg text-gray-700">
+                            <p>This comprehensive web development bootcamp will take you from complete beginner to job-ready developer. You'll learn the most in-demand technologies and build real-world projects that you can add to your portfolio.</p>
+                            
+                            <h3>What you'll learn:</h3>
+                            <ul>
+                                <li>HTML5 and CSS3 fundamentals</li>
+                                <li>Modern JavaScript ES6+ features</li>
+                                <li>React.js for building dynamic user interfaces</li>
+                                <li>Node.js and Express.js for backend development</li>
+                                <li>Database design with MongoDB</li>
+                                <li>Authentication and security best practices</li>
+                                <li>Deployment and DevOps basics</li>
+                            </ul>
+                            
+                            <h3>Prerequisites:</h3>
+                            <p>No prior programming experience required. Just bring your curiosity and willingness to learn!</p>
+                        </div>
+                    </div>
+
+                    <!-- Course Curriculum -->
+                    <div class="bg-white shadow rounded-lg p-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Course Curriculum</h2>
+                        
+                        <!-- Section 1 -->
+                        <div class="border border-gray-200 rounded-lg mb-4">
+                            <button class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-t-lg" onclick="toggleSection('section1')">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <h3 class="text-lg font-medium text-gray-900">Section 1: HTML & CSS Fundamentals</h3>
+                                        <span class="ml-4 text-sm text-gray-500">5 lessons • 3 hours</span>
+                                    </div>
+                                    <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="section1-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                            <div class="hidden border-t border-gray-200" id="section1-content">
+                                <div class="px-6 py-4 space-y-3">
+                                    <div class="flex items-center justify-between py-2 hover:bg-gray-50 rounded px-2">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m6-4a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span class="text-sm text-gray-700">Introduction to HTML</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <span>12:30</span>
+                                            <button class="ml-3 text-lms-primary hover:text-lms-secondary">Preview</button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between py-2 hover:bg-gray-50 rounded px-2">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                            </svg>
+                                            <span class="text-sm text-gray-700">HTML Tags and Structure</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <span>18:45</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between py-2 hover:bg-gray-50 rounded px-2">
+                                        <div class="flex items-center">
+                                            <svg class="h-5 w-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            <span class="text-sm text-gray-700">CSS Basics and Styling</span>
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <span>25:20</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2 -->
+                        <div class="border border-gray-200 rounded-lg mb-4">
+                            <button class="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-t-lg" onclick="toggleSection('section2')">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <h3 class="text-lg font-medium text-gray-900">Section 2: JavaScript Fundamentals</h3>
+                                        <span class="ml-4 text-sm text-gray-500">8 lessons • 5 hours</span>
+                                    </div>
+                                    <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="section2-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                            <div class="hidden border-t border-gray-200" id="section2-content">
+                                <div class="px-6 py-4">
+                                    <p class="text-sm text-gray-600">JavaScript basics, DOM manipulation, events, and modern ES6+ features.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More sections would follow the same pattern -->
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="mt-8 lg:mt-0 lg:col-span-4">
+                    <!-- Enrollment Card -->
+                    <div class="bg-white shadow rounded-lg p-6 sticky top-6">
+                        <div class="text-center mb-6">
+                            <div class="text-3xl font-bold text-gray-900 mb-2">$49.99</div>
+                            <div class="text-lg text-gray-500 line-through">$99.99</div>
+                            <div class="text-sm text-green-600 font-medium">50% off for limited time!</div>
+                        </div>
+
+                        <div sec:authorize="isAnonymous()">
+                            <button onclick="location.href='/login'" 
+                                    class="w-full bg-lms-primary hover:bg-lms-secondary text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 mb-4">
+                                Sign in to Enroll
+                            </button>
+                        </div>
+
+                        <div sec:authorize="isAuthenticated()">
+                            <button class="w-full bg-lms-primary hover:bg-lms-secondary text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 mb-4">
+                                Enroll Now
+                            </button>
+                        </div>
+
+                        <div class="text-center text-sm text-gray-500 mb-6">30-day money-back guarantee</div>
+
+                        <!-- Course Features -->
+                        <div class="border-t pt-6">
+                            <h4 class="font-medium text-gray-900 mb-4">This course includes:</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    40 hours on-demand video
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    15 coding exercises
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    5 downloadable resources
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Full lifetime access
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Access on mobile and TV
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="h-4 w-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Certificate of completion
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Share Course -->
+                        <div class="border-t pt-6 mt-6">
+                            <h4 class="font-medium text-gray-900 mb-4">Share this course:</h4>
+                            <div class="flex space-x-2">
+                                <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm">
+                                    Facebook
+                                </button>
+                                <button class="flex-1 bg-blue-400 hover:bg-blue-500 text-white px-3 py-2 rounded text-sm">
+                                    Twitter
+                                </button>
+                                <button class="flex-1 bg-blue-800 hover:bg-blue-900 text-white px-3 py-2 rounded text-sm">
+                                    LinkedIn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block layout:fragment="scripts">
+        <script>
+            function toggleSection(sectionId) {
+                const content = document.getElementById(sectionId + '-content');
+                const icon = document.getElementById(sectionId + '-icon');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        </script>
+    </th:block>
+</body>
+</html>

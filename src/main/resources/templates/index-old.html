@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Welcome to Hari LMS</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Hero Section -->
+        <div class="bg-gradient-to-r from-lms-primary to-lms-secondary">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                        Welcome to <span class="text-lms-accent">Hari LMS</span>
+                    </h1>
+                    <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                        A modern Learning Management System built with Spring Boot, featuring role-based access control, 
+                        course management, and interactive learning experiences.
+                    </p>
+                    <div class="space-x-4">
+                        <a th:href="@{/courses}" 
+                           class="bg-white text-lms-primary hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block">
+                            Browse Courses
+                        </a>
+                        <a th:href="@{/signup}" 
+                           class="bg-lms-accent hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Powerful Features for Modern Learning
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Everything you need to create, manage, and deliver exceptional learning experiences.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Feature 1: Role-Based Access -->
+                    <div class="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+                        <div class="w-16 h-16 bg-lms-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Role-Based Access Control</h3>
+                        <p class="text-gray-600">
+                            Secure system with Admin, Instructor, and Student roles. Each user has appropriate permissions and dashboard views.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2: Course Management -->
+                    <div class="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+                        <div class="w-16 h-16 bg-lms-success rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Comprehensive Course Management</h3>
+                        <p class="text-gray-600">
+                            Create, organize, and publish courses with lessons. Support for text, video, and PDF content types.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3: Progress Tracking -->
+                    <div class="text-center p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-200">
+                        <div class="w-16 h-16 bg-lms-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Progress Tracking</h3>
+                        <p class="text-gray-600">
+                            Monitor student progress with detailed analytics. Track completion rates and course performance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack Section -->
+        <div class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Built with Modern Technologies
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Production-ready architecture using industry-standard tools and frameworks.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Spring Boot -->
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-green-600">SB</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Spring Boot</h4>
+                        <p class="text-sm text-gray-600">Backend Framework</p>
+                    </div>
+                    
+                    <!-- MySQL -->
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-blue-600">SQL</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">MySQL</h4>
+                        <p class="text-sm text-gray-600">Database</p>
+                    </div>
+                    
+                    <!-- JWT -->
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-purple-600">JWT</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">JWT Auth</h4>
+                        <p class="text-sm text-gray-600">Security</p>
+                    </div>
+                    
+                    <!-- TailwindCSS -->
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-cyan-600">TW</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">TailwindCSS</h4>
+                        <p class="text-sm text-gray-600">Styling</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="py-20 bg-lms-primary">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">
+                    Ready to Start Learning?
+                </h2>
+                <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                    Join thousands of students and instructors who are already using Hari LMS to achieve their learning goals.
+                </p>
+                <div class="space-x-4">
+                    <a th:href="@{/signup}" 
+                       class="bg-white text-lms-primary hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block">
+                        Create Account
+                    </a>
+                    <a th:href="@{/login}" 
+                       class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-lms-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

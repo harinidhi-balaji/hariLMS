@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Hari LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-graduation-cap text-primary-600 text-xl mr-2"></i>
+                        <span class="text-xl font-bold text-secondary-900">Hari LMS</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/student" class="text-secondary-600 hover:text-primary-600 transition-colors">
+                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen py-8">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Success Animation -->
+                        <!-- Page Header -->
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-3xl text-green-600"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-secondary-900 mb-2">Enrollment Successful!</h1>
+                <p class="text-secondary-600">You have been successfully enrolled in the course</p>
+            </div>
+
+            <!-- Success Message -->
+            <div th:if="${successMessage}" class="mb-6">
+                <div class="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg text-center">
+                    <i class="fas fa-graduation-cap text-2xl mb-2"></i>
+                    <p class="text-lg font-medium" th:text="${successMessage}">Success message</p>
+                </div>
+            </div>
+
+            <!-- Payment Details Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Course Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Course Details</h3>
+                        <div th:if="${course}" class="space-y-3">
+                            <div class="flex items-start">
+                                <i class="fas fa-book text-primary-600 mt-1 mr-3"></i>
+                                <div>
+                                    <div class="font-medium text-secondary-900" th:text="${course.title}">Course Title</div>
+                                    <div class="text-sm text-secondary-500" th:text="${course.instructor}">Instructor Name</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-secondary-400 mr-3"></i>
+                                <span class="text-secondary-600">Lifetime access</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-secondary-400 mr-3"></i>
+                                <span class="text-secondary-600">Join thousands of students</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-secondary-900 mb-4">Payment Summary</h3>
+                        <div th:if="${payment}" class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Transaction ID:</span>
+                                <span class="font-mono text-sm text-secondary-900" th:text="${payment.transactionId}">TXN-ABC123</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Amount Paid:</span>
+                                <span class="font-semibold text-secondary-900">$<span th:text="${payment.amount}">99.99</span></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Payment Date:</span>
+                                <span class="text-secondary-900" th:text="${#temporals.format(payment.completedAt, 'MMM dd, yyyy HH:mm')}">Oct 28, 2024 14:30</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-secondary-600">Status:</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Completed
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipt Download -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <p class="text-secondary-600 mb-4 sm:mb-0">
+                            A confirmation email has been sent to your registered email address.
+                        </p>
+                        <button class="inline-flex items-center px-4 py-2 bg-secondary-100 text-secondary-700 rounded-lg hover:bg-secondary-200 transition-colors">
+                            <i class="fas fa-download mr-2"></i>
+                            Download Receipt
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-6 mb-6">
+                <h3 class="text-lg font-semibold text-secondary-900 mb-4">
+                    <i class="fas fa-rocket mr-2 text-primary-600"></i>
+                    What's Next?
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-8 h-8 bg-primary-100 rounded-full mr-3 mt-1">
+                            <span class="text-sm font-semibold text-primary-600">1</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-secondary-900">Access Course</h4>
+                            <p class="text-sm text-secondary-600">Start learning immediately with full course access</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-8 h-8 bg-primary-100 rounded-full mr-3 mt-1">
+                            <span class="text-sm font-semibold text-primary-600">2</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-secondary-900">Track Progress</h4>
+                            <p class="text-sm text-secondary-600">Monitor your learning journey in your dashboard</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-8 h-8 bg-primary-100 rounded-full mr-3 mt-1">
+                            <span class="text-sm font-semibold text-primary-600">3</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-secondary-900">Get Certificate</h4>
+                            <p class="text-sm text-secondary-600">Earn your certificate upon course completion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a th:href="@{/courses/{courseId}(courseId=${course.id})}" 
+                   class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-xl">
+                    <i class="fas fa-play mr-2"></i>
+                    Start Learning Now
+                </a>
+                
+                <a href="/student" 
+                   class="inline-flex items-center justify-center px-8 py-3 border-2 border-secondary-300 text-secondary-700 font-semibold rounded-xl hover:border-secondary-400 hover:bg-secondary-50 transition-colors">
+                    <i class="fas fa-tachometer-alt mr-2"></i>
+                    Go to Dashboard
+                </a>
+                
+                <a href="/courses" 
+                   class="inline-flex items-center justify-center px-8 py-3 text-secondary-600 font-semibold rounded-xl hover:text-primary-600 transition-colors">
+                    <i class="fas fa-search mr-2"></i>
+                    Explore More Courses
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
